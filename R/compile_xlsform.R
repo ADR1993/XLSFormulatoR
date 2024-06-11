@@ -6,7 +6,7 @@
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(filename = "names.csv", type = "jpg", layer_list){
+compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg"){
   
   # Extract layer names and questions from the list
   layer_vec = layer_question = rep(NA, length(layer_list))
