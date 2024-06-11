@@ -1,6 +1,6 @@
 XLSFormulatoR
 ========
-<img align="right" src="https://github.com/ADR1993/XLSFormulatoR/blob/main/logo.png" alt="logo" width="270"> 
+<img align="right" src="https://github.com/ADR1993/XLSFormulatoR/blob/main/logo.png" alt="logo" width="200"> 
 
 XLSFormulatoR is an R package that facilitates the design of XLSForm surveys to collect social network data.
 Following the photo-roster-based, name-generator workflow on KoboToolbox described by Dalla Ragione et al. (2024, pre-print), XLSFormulatoR creates XLSForms containing an arbitrary number of repeat groups for any network layer that the end-user is interested in collecting. 
