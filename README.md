@@ -1,6 +1,6 @@
 XLSFormulatoR
 ========
-<img align="right" src="https://github.com/ctross/IPDToolkit/blob/main/logo.png" alt="logo" width="170"> 
+<img align="right" src="https://github.com/ADR1993/XLSFormulatoR/blob/main/logo.png" alt="logo" width="170"> 
 
 XLSFormulatoR is an R package designed to facilitate the simulation and analysis of iterated prisoner's dilema games using Bayesian discrete mixture models.
 
