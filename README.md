@@ -23,8 +23,8 @@ The list is then supplied to the `compile_xlsform` function as the `layer_list` 
 
 The `compile_xlsform` function takes 3 arguments, with 2 defaults. 
 `filename` (default: `names.csv`) is the external CSV file attached to the KoboToolbox project. It contains the names and IDs of individuals who are part of the sample.
-`type` (default: `jpg`) is the extension of the attached photo roster. 
-It then exports a complete XLSForm to the current working directory, ready to be deployed on KoboToolbox. 
+`type` (default: `jpg`) is the extension used for the attached photo roster. 
+The function exports a complete XLSForm to the current working directory, ready to be deployed on KoboToolbox. 
 ```{r}
 questions = list(
  "friendship" = "Please list the names of your closest friends.",
