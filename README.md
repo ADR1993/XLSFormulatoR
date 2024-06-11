@@ -19,7 +19,7 @@ library(XLSFormulatoR)
 ```
 
 The XLSFormulatoR workflow is extremely simple: define a list where each element name refers to the type of social network that you want to collect, and add the corresponding question as list element.
-The `compile_xlsform` function takes 3 arguments, with 2 defaults. `filename` (default: "names.csv") is the external CSV file attached to the KoboToolbox project, while `type` (default: "jpg") is the extension of the attached photo roster. 
+The `compile_xlsform` function takes 3 arguments, with 2 defaults. `filename` (default: `names.csv`) is the external CSV file attached to the KoboToolbox project, while `type` (default: `jpg`) is the extension of the attached photo roster. 
 ```{r}
 questions = list(
  "friendship" = "Please list the names of your closest friends.",
