@@ -4,14 +4,21 @@
 \alias{compile_xlsform}
 \title{compile_xlsform function file.}
 \usage{
-compile_xlsform(filename = "names.csv", type = "jpg", layer_list)
+compile_xlsform(
+  layer_list,
+  filename = "names.csv",
+  type = "jpg",
+  photo_confirm = TRUE
+)
 }
 \arguments{
+\item{layer_list}{A labeled list of network questions to construct.}
+
 \item{filename}{The name of the external csv file with names and PIDS.}
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
 
-\item{layer_list}{A labeled list of network questions to construct.}
+\item{photo_confirm}{A Boolean value that specifies whether the photo confirmation group needs to be included in the output.}
 }
 \value{
 An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect.

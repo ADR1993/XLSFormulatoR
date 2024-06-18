@@ -1,12 +1,13 @@
 #' compile_xlsform function file.
 #'
+#' @param layer_list A labeled list of network questions to construct.
 #' @param filename The name of the external csv file with names and PIDS.
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
-#' @param layer_list A labeled list of network questions to construct.
+#' @param photo_confirm A Boolean value that specifies whether the photo confirmation group needs to be included in the output.
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg"){
+compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = TRUE){
   
   # Extract layer names and questions from the list
   layer_vec = layer_question = rep(NA, length(layer_list))
@@ -21,12 +22,21 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg"){
   # List to store the output of the net_layer function
   vec = vector(mode = "list", length = length(layer_list))
   
-  # Loop
-  for(i in 1:length(layer_list)){
+  # Loop conditionally based on the photo confirmation argument
+  if(photo_confirm == TRUE){
+      for(i in 1:length(layer_list)){
     vec[[i]] = net_layer(filename = filename, 
                           layer = layer_vec[i], 
                           layer_question = layer_question[i], 
                           type = type)
+       }
+  } else {  
+      for(i in 1:length(layer_list)){
+        vec[[i]] = net_layer(filename = filename, 
+                             layer = layer_vec[i], 
+                             layer_question = layer_question[i], 
+                             type = type)[-c(7:12),]
+      }
   }
   
   # Bind all the elements of the vector: this is an object containing all the network questions

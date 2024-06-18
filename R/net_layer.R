@@ -60,7 +60,8 @@ net_layer = function(filename, type, layer, layer_question){
                     rep(NA, 2), 
                     "field-list", 
                     rep(NA, length(colnames) - 5))
-  calculate2 = c("calculate", "network_layer", 
+  calculate2 = c("calculate", 
+                  paste0("network_layer_", layer),
                   rep(NA, 5), 
                   paste0("concat('", layer, "', '')"),
                   NA)
