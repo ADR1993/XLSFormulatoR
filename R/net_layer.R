@@ -82,8 +82,7 @@ net_layer = function(filename, type, layer, layer_question){
 
   end_group2 = c("end_group", 
                   paste0(layer, "_photo_confirmation"), 
-                  rep(NA, 2), 
-                  "field-list", 
+                  rep(NA, 3),
                   rep(NA, length(colnames) - 5))
   
   # End repeat

@@ -8,7 +8,7 @@ compile_xlsform(
   layer_list,
   filename = "names.csv",
   type = "jpg",
-  photo_confirm = TRUE
+  photo_confirm = "all"
 )
 }
 \arguments{
@@ -18,7 +18,8 @@ compile_xlsform(
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
 
-\item{photo_confirm}{A Boolean value that specifies whether the photo confirmation group needs to be included in the output.}
+\item{photo_confirm}{A value that specifies whether the photo confirmation group needs to be included in the output. 
+Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{
 An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect.
