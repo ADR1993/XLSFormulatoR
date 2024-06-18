@@ -32,7 +32,7 @@ questions = list(
  "receiving" = "Please list the names of people who have given money to you in the last 30 days.")
 
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpg", photo_confirm="all")
+                type = "jpg", photo_confirm = "all")
 ```
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns it into a dataframe with an edgelist structure in R.
