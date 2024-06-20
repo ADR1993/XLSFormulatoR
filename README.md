@@ -40,9 +40,11 @@ compile_xlsform(layer_list = questions, filename = "names.csv",
 ```
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns it into a dataframe with an edgelist structure in R.
+To use this function, you need the path to the data file and the `questions` object used to generate the XLSForm.
+The function also gives the possibility of saving the edgelist in the working directory.
 ```{r}
-loc = file.choose()
-d = kobo_to_edgelist(loc, save=NULL)
+path = file.choose()
+d = kobo_to_edgelist(path, questions, save = NULL)
 ```
 
 
