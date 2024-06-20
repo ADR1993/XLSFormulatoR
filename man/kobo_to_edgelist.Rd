@@ -4,10 +4,12 @@
 \alias{kobo_to_edgelist}
 \title{kobo_to_edgelist function file.}
 \usage{
-kobo_to_edgelist(datafile, save = NULL)
+kobo_to_edgelist(path, questions, save = NULL)
 }
 \arguments{
-\item{datafile}{The name of the XLS data object exported from KoboToolbox.}
+\item{path}{The name of the XLS data object exported from KoboToolbox.}
+
+\item{questions}{The labeled list used in the creation of the XLSForm.}
 
 \item{save}{If not NULL, then R was save the data with name "save".}
 }
