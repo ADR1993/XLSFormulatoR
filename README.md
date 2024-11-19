@@ -47,4 +47,6 @@ path = file.choose()
 d = kobo_to_edgelist(path, questions, save = NULL)
 ```
 
+To reproduce the workflow in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), download the `photos.zip` and the names.csv files in the `assets` folder. 
+
 
