@@ -47,6 +47,10 @@ path = file.choose()
 d = kobo_to_edgelist(path, questions, save = NULL)
 ```
 
+An important feature of the XLSFormulatoR name search is that it allows the addition of out-of-roster individuals to the nominations. 
+Researchers have to add a slot called "out_of_roster" in the `names.csv`file that is attached to the project. 
+This way, there will be an "Out of roster" alter to be selected in the name search, which brings the interviewer to a text field that can be filled with the out of roster nomination.
+
 To reproduce the workflow in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), download the `photos.zip` and the `names.csv` files in the `assets` folder. 
 
 
