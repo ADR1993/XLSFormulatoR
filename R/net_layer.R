@@ -51,7 +51,7 @@ net_layer = function(filename, type, layer, layer_question){
                  NA)
 
   end_group1 = c("end_group", 
-                  paste0(layer, "_name"),
+                  paste0(layer, "_search"),
                   rep(NA, length(colnames) - 2))
   
   # Photo confirmation
@@ -59,7 +59,8 @@ net_layer = function(filename, type, layer, layer_question){
                     paste0(layer, "_photo_confirmation"), 
                     rep(NA, 2), 
                     "field-list", 
-                    rep(NA, length(colnames) - 5))
+                    paste0("not(selected(${", layer, "_name}, 'out_of_roster'))"),
+                    rep(NA, length(colnames) - 6))
   calculate2 = c("calculate", 
                   paste0("network_layer_", layer),
                   rep(NA, 5), 
@@ -84,6 +85,21 @@ net_layer = function(filename, type, layer, layer_question){
                   paste0(layer, "_photo_confirmation"), 
                   rep(NA, 3),
                   rep(NA, length(colnames) - 5))
+
+  begin_group3 = c("begin_group",
+                  paste0(layer, "_out_of_roster"),
+                  rep(NA, 3),
+                  paste0("selected(${", layer, "_name}, 'out_of_roster')"),
+                  rep(NA, length(colnames) - 6))
+
+  text = c("text",
+           paste0(layer, "_by_hand"), 
+           "Write the name of the person",
+           rep(NA, length(colnames) - 3))
+
+  end_group3 = c("end_group",
+                  paste0(layer, "_out_of_roster"),
+                  rep(NA, length(colnames) - 2))
   
   # End repeat
   end_repeat = c("end_repeat", paste0(layer, "_repeat"), rep(NA, length(colnames) - 2))
@@ -105,6 +121,11 @@ net_layer = function(filename, type, layer, layer_question){
                calculate3,
                calculate4,
                end_group2,
+
+               # group 3 
+               begin_group3, 
+               text, 
+               end_group3,
                
                # ending
                end_repeat
