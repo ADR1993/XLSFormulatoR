@@ -54,7 +54,13 @@ q_list = list("Age" = alter_question(prompt = "How old is this person?",
                                               options = c("Upper class", "Middle class", "Lower class")))
 ```
 Question names (e.g., "Age") should not include white space (ex., "Alter_relation" rather than "Alter relation") due to how XLSFormulatoR handles them internally.
+`alter_question` takes 4 types: "decimal", "text", "select_one", and "likert". 
 
+The question list can then be passed on as an argument to the `compile_xlsform` function. 
+```{r}
+compile_xlsform(layer_list = questions, filename = "names.csv",
+                type = "jpg", photo_confirm = "all", q_list = q_list)
+```
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns it into a dataframe with an edgelist structure in R.
 To use this function, you need the path to the data file and the `questions` object used to generate the XLSForm.
