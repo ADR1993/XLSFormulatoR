@@ -8,7 +8,8 @@ compile_xlsform(
   layer_list,
   filename = "names.csv",
   type = "jpg",
-  photo_confirm = "all"
+  photo_confirm = "all",
+  q_list = NULL
 )
 }
 \arguments{
@@ -18,7 +19,9 @@ compile_xlsform(
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
 
-\item{photo_confirm}{A value that specifies whether the photo confirmation group needs to be included in the output. 
+\item{photo_confirm}{A value that specifies whether the photo confirmation group needs to be included in the output.}
+
+\item{q_list}{A named list of follow-up questions created using the alter_question() function.
 Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{
