@@ -5,7 +5,7 @@
 #' @return A data frame containing a single layer of follow-up questions in an XLSForm repeat group.
 #' @export
 
-layer_details = function(layer_vec, q_list){
+layer_details = function(layer_vec, alter_questions){
   
   begin_repeat = c("begin_repeat",
                    paste0(layer_vec, "_details"), 
@@ -41,16 +41,16 @@ layer_details = function(layer_vec, q_list){
                    rep(NA, 8))
   
   #extract question list elements
-  q_names = gsub("\\s+", "_", trimws(names(q_list))) #question names to use in pasting
-  q_prompts = sapply(q_list, function(x) x[[1]]) #question prompts to use in pasting
-  q_types = sapply(q_list, function(x) x[[2]]) #question types to use in pasting
-  q_choices = sapply(q_list, function(x) x[[3]]) #choice list for select_one and likert questions
+  q_names = gsub("\\s+", "_", trimws(names(alter_questions))) #question names to use in pasting
+  q_prompts = sapply(alter_questions, function(x) x[[1]]) #question prompts to use in pasting
+  q_types = sapply(alter_questions, function(x) x[[2]]) #question types to use in pasting
+  q_choices = sapply(alter_questions, function(x) x[[3]]) #choice list for select_one and likert questions
   
   #empty list to store follow up questions
-  ls = vector(mode = "list", length = length(q_list)) 
+  ls = vector(mode = "list", length = length(alter_questions)) 
   
   #loop over question list to add the follow-up questions for each question for the given layer
-  for(i in 1:length(q_list)){
+  for(i in 1:length(alter_questions)){
     
     #if choice list is not supplied
     if(is.null(q_choices[[i]]) == TRUE){

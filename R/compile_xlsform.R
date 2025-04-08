@@ -9,7 +9,7 @@
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", q_list = NULL){
+compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", alter_questions = NULL){
   
   if(!photo_confirm %in% c("all", "only_focal", "none")){
     stop("photo_confirm must be one of: all, only_focal, none")
@@ -66,7 +66,7 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   #create the follow-up groups for each layer
   follow_up_list = vector(mode = "list", length = length(layer_vec))
   for(i in 1:length(layer_vec)){
-    follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], q_list = q_list)
+    follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], alter_questions = alter_questions)
   }
   obj3 = do.call(rbind, follow_up_list)
   
@@ -78,9 +78,9 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   colnames(survey) = colnames(form)
   
   ### Create the choices sheet of the xlsform
-  q_choices = sapply(q_list, function(x) x[[3]])
+  q_choices = sapply(alter_questions, function(x) x[[3]])
   
-  #if there is at least a choice list provided in the q_list object
+  #if there is at least a choice list provided in the alter_questions object
   if(any(!sapply(q_choices, is.null)) == TRUE){ 
     
     #choice labels
@@ -102,7 +102,7 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
     colnames(choices) = c("list_name", "name", "label")
   }
   
-  #if no choice list is supplied in the q_list object
+  #if no choice list is supplied in the alter_questions object
   if(any(!sapply(q_choices, is.null)) == FALSE){ 
     choices = data.frame(rbind(rep(NA, 3)))
     colnames(choices) = c("list_name", "name", "label")
