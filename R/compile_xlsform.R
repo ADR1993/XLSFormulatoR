@@ -78,6 +78,8 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   colnames(survey) = colnames(form)
   
   ### Create the choices sheet of the xlsform
+  q_choices = sapply(q_list, function(x) x[[3]])
+  
   #if there is at least a choice list provided in the q_list object
   if(any(!sapply(q_choices, is.null)) == TRUE){ 
     
@@ -91,7 +93,7 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
     #list_name for choices
     list = vector(mode = "list", length = length(choice_label_vec))
     for(i in 1:length(choice_label_vec)){
-      list[[i]] = rep(names(choice_label_vec)[i], length(choice_label_vec[[i]]))
+      list[[i]] = rep(gsub("\\s+", "_", names(choice_label_vec)[i]), length(choice_label_vec[[i]]))
     }
     choice_list_name = paste0(unlist(list), "_scale")
     
