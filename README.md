@@ -53,8 +53,7 @@ q_list = list("Age" = alter_question(prompt = "How old is this person?",
                                               type = "likert", 
                                               options = c("Upper class", "Middle class", "Lower class")))
 ```
-Question names (e.g., "Age") should not include white space (ex., "Alter_relation" rather than "Alter relation") due to how XLSFormulatoR handles them internally.
-`alter_question` takes 4 types: "decimal", "text", "select_one", and "likert". 
+`alter_question` takes 4 types: "decimal", "text", "select_one", and "likert". If "select_one" or "likert" are supplied as input types, the user should also supply a vector containing the list of options that the respondent will be shown.
 
 The question list can then be passed on as an argument to the `compile_xlsform` function. 
 ```{r}
