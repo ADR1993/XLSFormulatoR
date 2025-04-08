@@ -3,7 +3,7 @@
 #' @param filename The name of the external csv file with names and PIDS.
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
 #' @param layer The shortname for the question or network layer.
-#' @param layer_question The full question to be read to respodents..
+#' @param layer_question The full question to be read to respodents.
 #' @return A data frame containing the XLSForm style for one network layer. 
 #' @export
 
