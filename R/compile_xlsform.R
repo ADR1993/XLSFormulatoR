@@ -63,47 +63,61 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   # Bind all the elements of the vector: this is an object containing all the network questions
   obj2 = do.call(rbind, vec)
   
-  #create the follow-up groups for each layer
-  follow_up_list = vector(mode = "list", length = length(layer_vec))
-  for(i in 1:length(layer_vec)){
-    follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], alter_questions = alter_questions)
+  #create the follow-up groups for each layer if the alter_questions list is supplied
+  if(is.null(alter_questions) == FALSE){
+    
+    follow_up_list = vector(mode = "list", length = length(layer_vec))
+    
+    for(i in 1:length(layer_vec)){
+      follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], alter_questions = alter_questions)
+    }
+    
+    obj3 = do.call(rbind, follow_up_list)
+    
+    # Bind together with the focal info group to create the main sheet of the xlsform
+    form = rbind(obj1, obj2, obj3)
+  } else {
+    form = rbind(obj1, obj2)
   }
-  obj3 = do.call(rbind, follow_up_list)
-  
-  # Bind together with the focal info group to create the main sheet of the xlsform
-  form = rbind(obj1, obj2, obj3)
-  
+
   # Turn it into dataframe for xlsx export
   survey = data.frame(form)
   colnames(survey) = colnames(form)
   
   ### Create the choices sheet of the xlsform
-  q_choices = sapply(alter_questions, function(x) x[[3]])
-  
   #if there is at least a choice list provided in the alter_questions object
-  if(any(!sapply(q_choices, is.null)) == TRUE){ 
+  if(is.null(alter_questions) == FALSE){
     
-    #choice labels
-    choice_label_vec = Filter(Negate(is.null), q_choices)
-    choice_label = unlist(choice_label_vec)
+    q_choices = sapply(alter_questions, function(x) x[[3]])
     
-    #choice names
-    choice_name = gsub("\\s+", "_", trimws(choice_label))
-    
-    #list_name for choices
-    list = vector(mode = "list", length = length(choice_label_vec))
-    for(i in 1:length(choice_label_vec)){
-      list[[i]] = rep(gsub("\\s+", "_", names(choice_label_vec)[i]), length(choice_label_vec[[i]]))
+    if(any(!sapply(q_choices, is.null)) == TRUE){ 
+      
+      #choice labels
+      choice_label_vec = Filter(Negate(is.null), q_choices)
+      choice_label = unlist(choice_label_vec)
+      
+      #choice names
+      choice_name = gsub("\\s+", "_", trimws(choice_label))
+      
+      #list_name for choices
+      list = vector(mode = "list", length = length(choice_label_vec))
+      for(i in 1:length(choice_label_vec)){
+        list[[i]] = rep(gsub("\\s+", "_", names(choice_label_vec)[i]), length(choice_label_vec[[i]]))
+      }
+      choice_list_name = paste0(unlist(list), "_scale")
+      
+      #choices dataframe
+      choices = data.frame(choice_list_name, choice_name, choice_label)
+      colnames(choices) = c("list_name", "name", "label")
     }
-    choice_list_name = paste0(unlist(list), "_scale")
     
-    #choices dataframe
-    choices = data.frame(choice_list_name, choice_name, choice_label)
-    colnames(choices) = c("list_name", "name", "label")
-  }
-  
-  #if no choice list is supplied in the alter_questions object
-  if(any(!sapply(q_choices, is.null)) == FALSE){ 
+    #if no choice list is supplied in the alter_questions object
+    if(any(!sapply(q_choices, is.null)) == FALSE){ 
+      choices = data.frame(rbind(rep(NA, 3)))
+      colnames(choices) = c("list_name", "name", "label")
+    }
+  } else {
+    #empty choice sheet in case alter_questions list not supplied
     choices = data.frame(rbind(rep(NA, 3)))
     colnames(choices) = c("list_name", "name", "label")
   }
