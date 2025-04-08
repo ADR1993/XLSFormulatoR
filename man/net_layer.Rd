@@ -13,7 +13,7 @@ net_layer(filename, type, layer, layer_question)
 
 \item{layer}{The shortname for the question or network layer.}
 
-\item{layer_question}{The full question to be read to respodents..}
+\item{layer_question}{The full question to be read to respodents.}
 }
 \value{
 A data frame containing the XLSForm style for one network layer.
