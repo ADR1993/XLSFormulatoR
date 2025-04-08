@@ -37,13 +37,13 @@ questions = list(
  "receiving" = "Please list the names of people who have given money to you in the last 30 days.")
 
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpg", photo_confirm = "all", q_list = NULL)
+                type = "jpg", photo_confirm = "all", alter_questions = NULL)
 ```
 
 XLSFormulatoR also allows users to supply follow-up questions for the nominations by adding a list of follow-up questions to the `compile_xlsform` function. 
 This list is generated using the `alter_question` function, as in the following example:
 ```{r}
-q_list = list("Age" = alter_question(prompt = "How old is this person?", 
+alter_questions = list("Age" = alter_question(prompt = "How old is this person?", 
                                      type = "decimal",
                                      options = NULL), 
               "Alter_relation" = alter_question(prompt = "How would you define your relationship with this person?", 
@@ -58,7 +58,7 @@ q_list = list("Age" = alter_question(prompt = "How old is this person?",
 The question list can then be passed on as an argument to the `compile_xlsform` function. 
 ```{r}
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpg", photo_confirm = "all", q_list = q_list)
+                type = "jpg", photo_confirm = "all", alter_questions = alter_questions)
 ```
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns it into a dataframe with an edgelist structure in R.
