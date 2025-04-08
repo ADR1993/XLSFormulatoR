@@ -9,7 +9,7 @@ compile_xlsform(
   filename = "names.csv",
   type = "jpg",
   photo_confirm = "all",
-  q_list = NULL
+  alter_questions = NULL
 )
 }
 \arguments{

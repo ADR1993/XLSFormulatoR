@@ -4,7 +4,7 @@
 \alias{layer_details}
 \title{layer_details function file.}
 \usage{
-layer_details(layer_vec, q_list)
+layer_details(layer_vec, alter_questions)
 }
 \arguments{
 \item{layer_vec}{The name of the network layer for which the follow-up questions are deployed.}
