@@ -46,7 +46,7 @@ layer_to_edgelist = function(d, layer){
   } else {
     hash_list = data.frame(hash = character(),
                            name = character(),
-                           layer = character(),)
+                           layer = character())
   }
 
   #join dataframe and hash list in a list
