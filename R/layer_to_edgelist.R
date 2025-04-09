@@ -8,12 +8,13 @@
 layer_to_edgelist = function(d, layer){
   
   #check whether the dataframe has no nominations
-  if(any(!is.na(d[,which(colnames(d) == paste0(layer, "_name"))][[1]]))){
+  if(all(!is.na(d[,which(colnames(d) == paste0(layer, "_name"))][[1]]))){
     
     #created hash codes if there is at least one non-NA element in the layer_by_hand column
     if(any(!is.na(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))){
       hash = openssl::sha1(as.vector(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))
     }
+    
     #if at least one out of roster individual is present 
     if(any(!is.na(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))){
         
