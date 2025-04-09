@@ -35,12 +35,20 @@ layer_to_edgelist = function(d, layer){
   colnames(edgelist) = c("alter", "layer", "focal")
   edgelist = edgelist[,c("focal", "alter", "layer")]
   
-  #hash dataframe creation
-  hash_list = data.frame(hash = as.vector(hash), 
-                         name = d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]])
-  hash_list = hash_list[complete.cases(hash_list),]
-  hash_list$layer = rep(layer, nrow(hash_list))
-  
+  #conditional hash dataframe creation
+  if(any(!is.na(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))){
+    
+    hash_list = data.frame(hash = as.vector(hash), 
+                           name = d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]])
+    hash_list = hash_list[complete.cases(hash_list),]
+    hash_list$layer = rep(layer, nrow(hash_list))
+    
+  } else {
+    hash_list = data.frame(hash = character(),
+                           name = character(),
+                           layer = character(),)
+  }
+
   #join dataframe and hash list in a list
   ls = list(edgelist, hash_list)
   
