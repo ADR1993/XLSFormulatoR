@@ -4,17 +4,19 @@
 \alias{kobo_to_edgelist}
 \title{kobo_to_edgelist function file.}
 \usage{
-kobo_to_edgelist(path, questions, save = NULL)
+kobo_to_edgelist(path, questions, return_hash = TRUE, save = FALSE)
 }
 \arguments{
 \item{path}{The name of the XLS data object exported from KoboToolbox.}
 
 \item{questions}{The labeled list used in the creation of the XLSForm.}
 
-\item{save}{If not NULL, then R was save the data with name "save".}
+\item{return_hash}{Boolean. If TRUE, it returns a list whose first element is the edgelist, and the second element is the hash list mapping out of roster names to their hash. If FALSE, it returns the edgelist only.}
+
+\item{save}{If TRUE, it saves the output as an XLSX file in the working directory.}
 }
 \value{
-A data frame containing a network edgelist.
+A data frame containing a network edgelist, or a list containing a network edgelist and a hash list for out of roster individuals.
 }
 \description{
 kobo_to_edgelist function file.
