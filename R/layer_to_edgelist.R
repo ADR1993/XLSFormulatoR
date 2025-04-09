@@ -7,8 +7,10 @@
 
 layer_to_edgelist = function(d, layer){
   
-  #created hash codes
-  hash = openssl::sha1(as.vector(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))
+  #created hash codes if there is at least one non-NA element in the layer_by_hand column
+  if(any(!is.na(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))){
+    hash = openssl::sha1(as.vector(d[,which(colnames(d) == paste0(layer, "_by_hand"))][[1]]))
+  }
   
   for(i in 1:nrow(d)){
     
