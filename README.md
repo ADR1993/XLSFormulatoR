@@ -23,7 +23,7 @@ The list is then supplied to the `compile_xlsform` function as the `layer_list` 
 
 ### Compile an XLSForm network survey
 
-The `compile_xlsform` function takes 5 more arguments, with defaults.
+The `compile_xlsform` function takes 4 more arguments, with defaults.
 `filename` (default: `names.csv`) is the external CSV file attached to the KoboToolbox project. It contains the names and IDs of individuals who are part of the sample.
 `type` (default: `jpg`) is the extension used for the attached photo roster. 
 `photo_confirm` (default: `all`) gives the user the option to not include photo confirmation steps, both focal and alter. 
