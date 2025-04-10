@@ -21,7 +21,7 @@ library(XLSFormulatoR)
 The XLSFormulatoR workflow is extremely simple: define a list where each element name refers to the type of social network that you want to collect, and add the corresponding question as list element.
 The list is then supplied to the `compile_xlsform` function as the `layer_list` argument.
 
-# Compile an XLSForm network survey
+### Compile an XLSForm network survey
 
 The `compile_xlsform` function takes 5 more arguments, with defaults.
 `filename` (default: `names.csv`) is the external CSV file attached to the KoboToolbox project. It contains the names and IDs of individuals who are part of the sample.
@@ -42,7 +42,7 @@ compile_xlsform(layer_list = questions, filename = "names.csv",
                 type = "jpg", photo_confirm = "all", alter_questions = NULL)
 ```
 
-*** Follow-up questions
+### Follow-up questions
 
 XLSFormulatoR also allows users to supply follow-up questions for the nominations by adding a list of follow-up questions to the `compile_xlsform` function. 
 This list is generated using the `alter_question` function, as in the following example:
@@ -69,6 +69,8 @@ Researchers have to add a slot called "out_of_roster" in the `names.csv`file tha
 This way, there will be an "Out of roster" alter to be selected in the name search, which brings the interviewer to a text field that can be filled with the out of roster nomination.
 
 To reproduce the workflow in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), download the `photos.zip` and the `names.csv` files in the `assets` folder. 
+
+### Import the data as an edgelist
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns the social network information into a dataframe with an edgelist structure in R. 
 Out of roster individuals are assigned hash codes as personal identifiers, and a dataframe containing the hash codes and out of roster names (as well as layer information) is included in the function output as a default.
