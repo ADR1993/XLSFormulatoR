@@ -68,8 +68,6 @@ An important feature of the XLSFormulatoR name search is that it allows the addi
 Researchers have to add a slot called "out_of_roster" in the `names.csv`file that is attached to the project. 
 This way, there will be an "Out of roster" alter to be selected in the name search, which brings the interviewer to a text field that can be filled with the out of roster nomination.
 
-To reproduce the workflow in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), download the `photos.zip` and the `names.csv` files in the `assets` folder. 
-
 ### Import the data as an edgelist
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns the social network information into a dataframe with an edgelist structure in R. 
@@ -83,7 +81,6 @@ The function assumes that the data export was produced using the XML values and 
 path = file.choose()
 d = kobo_to_edgelist(path, questions, return_hash = TRUE, save = TRUE)
 ```
+### Reproduce Dalla Ragione et al., 2024.
 
-
-
-
+`XLSFormulatoR` was presented in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), where we provide a tutorial to showcase a quick and efficient method to collect social network data in field settings by using a photographic roster. To reproduce the workflow, download the `photos.zip` and the `names.csv` files in the `assets` folder, and run the R code in the paper. 
