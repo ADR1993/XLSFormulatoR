@@ -92,10 +92,22 @@ net_layer = function(filename, type, layer, layer_question){
                    paste0("selected(${", layer, "_name}, 'out_of_roster')"),
                    rep(NA, length(colnames) - 6))
   
+  calculate5 = c("calculate", 
+                 paste0("network_layer_", layer, "_out"),
+                 rep(NA, 5),
+                 paste0("concat('", layer, "', '')"),
+                 rep(NA, 2))
+  
   text = c("text",
            paste0(layer, "_by_hand"), 
            "Write the name of the person",
            rep(NA, length(colnames) - 3))
+  
+  calculate6 = c("calculate", 
+                 paste0(layer, "_id_display_out"), 
+                 rep(NA, 5),
+                 "${focal_id}",
+                 rep(NA, 2))
   
   end_group3 = c("end_group",
                  paste0(layer, "_out_of_roster"),
@@ -124,7 +136,9 @@ net_layer = function(filename, type, layer, layer_question){
               
               # group 3 
               begin_group3, 
+              calculate5,
               text, 
+              calculate6,
               end_group3,
               
               # ending
