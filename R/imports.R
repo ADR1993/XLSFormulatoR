@@ -1,3 +1,3 @@
-#' @import dplyr readxl stringr writexl
+#' @import dplyr readxl stringr writexl openssl
 
 NULL
