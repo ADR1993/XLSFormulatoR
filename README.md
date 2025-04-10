@@ -83,4 +83,4 @@ d = kobo_to_edgelist(path, questions, return_hash = TRUE, save = TRUE)
 ```
 ### Reproduce Dalla Ragione et al., 2024.
 
-`XLSFormulatoR` was presented in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), where we provide a tutorial to showcase a quick and efficient method to collect social network data in field settings by using a photographic roster. To reproduce the workflow, download the `photos.zip` and the `names.csv` files in the `assets` folder, and run the R code in the paper. 
+XLSFormulatoR was presented in [Dalla Ragione et al. (2024)](https://osf.io/preprints/socarxiv/gna3d), where we provide a tutorial to showcase a quick and efficient method to collect social network data in field settings by using a photographic roster. To reproduce the workflow, download the `photos.zip` and the `names.csv` files in the `assets` folder, and run the R code in the paper. 
