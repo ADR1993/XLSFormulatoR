@@ -21,7 +21,7 @@ library(XLSFormulatoR)
 The XLSFormulatoR workflow is extremely simple: define a list where each element name refers to the type of social network that you want to collect, and add the corresponding question as list element.
 The list is then supplied to the `compile_xlsform` function as the `layer_list` argument.
 
-*** Compile an XLSForm network survey ***
+# Compile an XLSForm network survey
 
 The `compile_xlsform` function takes 5 more arguments, with defaults.
 `filename` (default: `names.csv`) is the external CSV file attached to the KoboToolbox project. It contains the names and IDs of individuals who are part of the sample.
