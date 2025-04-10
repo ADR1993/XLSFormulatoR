@@ -72,6 +72,7 @@ As a default, the function outputs a list whose first element is a network edgel
 If the `return_hash` argument is set to `FALSE`, just the edgelist is returned.
 To use this function, you need the path to the data file and the `questions` object used to generate the XLSForm.
 The function also gives the possibility of saving the edgelist in the working directory by setting the `save` argument to the chosen filename.
+The function assumes that the data export was produced using the XML values and header options from the downloads page in KoboToolbox.
 ```{r}
 path = file.choose()
 d = kobo_to_edgelist(path, questions, return_hash = TRUE, save = TRUE)
