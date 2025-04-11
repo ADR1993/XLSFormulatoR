@@ -4,12 +4,12 @@
 \alias{layer_details}
 \title{layer_details function file.}
 \usage{
-layer_details(layer_vec, alter_questions)
+layer_details(layer_vec, follow_up_questions)
 }
 \arguments{
 \item{layer_vec}{The name of the network layer for which the follow-up questions are deployed.}
 
-\item{q_list}{Follow-up questions list.}
+\item{follow_up_questions}{Follow-up questions list.}
 }
 \value{
 A data frame containing a single layer of follow-up questions in an XLSForm repeat group.
