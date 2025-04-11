@@ -55,16 +55,16 @@ layer_details = function(layer_vec, follow_up_questions){
                    rep(NA, 8))
   
   #extract question list elements
-  q_names = gsub("\\s+", "_", trimws(names(alter_questions))) #question names to use in pasting
-  q_prompts = sapply(alter_questions, function(x) x[[1]]) #question prompts to use in pasting
-  q_types = sapply(alter_questions, function(x) x[[2]]) #question types to use in pasting
-  q_choices = sapply(alter_questions, function(x) x[[3]]) #choice list for select_one and likert questions
+  q_names = gsub("\\s+", "_", trimws(names(follow_up_questions))) #question names to use in pasting
+  q_prompts = sapply(follow_up_questions, function(x) x[[1]]) #question prompts to use in pasting
+  q_types = sapply(follow_up_questions, function(x) x[[2]]) #question types to use in pasting
+  q_choices = sapply(follow_up_questions, function(x) x[[3]]) #choice list for select_one and likert questions
   
   #empty list to store follow up questions
-  ls = vector(mode = "list", length = length(alter_questions)) 
+  ls = vector(mode = "list", length = length(follow_up_questions)) 
   
   #loop over question list to add the follow-up questions for each question for the given layer
-  for(i in 1:length(alter_questions)){
+  for(i in 1:length(follow_up_questions)){
     
     #if choice list is not supplied
     if(is.null(q_choices[[i]]) == TRUE){
