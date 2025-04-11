@@ -71,15 +71,13 @@ This way, there will be an "Out of roster" alter to be selected in the name sear
 ### Import the data as an edgelist
 
 An additional feature of the package is the `kobo_to_edgelist` function, which imports the XLS file exported from KoboToolbox and turns the social network information into a dataframe with an edgelist structure in R. 
-Out of roster individuals are assigned hash codes as personal identifiers, and a dataframe containing the hash codes and out of roster names (as well as layer information) is included in the function output as a default.
-As a default, the function outputs a list whose first element is a network edgelist for all the network layers, and whose second element is a hash list for all the out of roster individuals.
-If the `return_hash` argument is set to `FALSE`, just the edgelist is returned.
+Out of roster individuals are assigned hash codes as personal identifiers within the KoboCollect survey, which are then used in the construction of the edge-list.
 To use this function, you need the path to the data file and the `questions` object used to generate the XLSForm.
-The function also gives the possibility of saving the edgelist in the working directory by setting the `save` argument to the chosen filename.
-The function assumes that the data export was produced using the XML values and header options from the downloads page in KoboToolbox.
+The function also gives the possibility of saving the edge-list as an XLSX file in the working directory by setting the `save` argument (which is FALSE by default) to the chosen filename.
+The function assumes that the data export was produced using the XML values and header options from the Downloads page in KoboToolbox.
 ```{r}
 path = file.choose()
-d = kobo_to_edgelist(path, questions, return_hash = TRUE, save = TRUE)
+d = kobo_to_edgelist(path, questions, save = FALSE)
 ```
 ### Reproduce Dalla Ragione et al., 2024.
 
