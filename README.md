@@ -47,22 +47,22 @@ compile_xlsform(layer_list = questions, filename = "names.csv",
 XLSFormulatoR also allows users to supply follow-up questions for the nominations by adding a list of follow-up questions to the `compile_xlsform` function. 
 This list is generated using the `alter_question` function, as in the following example:
 ```{r}
-alter_questions = list("Age" = alter_question(prompt = "How old is this person?", 
+follow_up_list = list("Age" = alter_question(prompt = "How old is this person?", 
                                      type = "decimal",
                                      options = NULL), 
               "Alter_relation" = alter_question(prompt = "How would you define your relationship with this person?", 
                                                 type = "text",
                                                 options = NULL),
-              "Wealth_class" = alter_question(prompt = "How would you define the social class of this person?",
+              "Wealth_class" = alter_question(prompt = "What is the social class of this person?",
                                               type = "likert", 
-                                              options = c("Upper class", "Middle class", "Lower class")))
+                                              options = c("Upper class", "Middle class", "Working class")))
 ```
 `alter_question` takes 4 types: `decimal`, `text`, `select_one`, and `likert`. If `select_one` or `likert` are supplied as input types, the user should also supply a vector containing the list of options that the respondent will be shown.
 
 The question list can then be passed on as an argument to the `compile_xlsform` function. 
 ```{r}
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpeg", photo_confirm = "all", follow_up_questions = alter_questions)
+                type = "jpeg", photo_confirm = "all", follow_up_questions = follow_up_list)
 ```
 An important feature of the XLSFormulatoR name search is that it allows the addition of out-of-roster individuals to the nominations. 
 Researchers have to add a slot called "out_of_roster" in the `names.csv`file that is attached to the project. 
