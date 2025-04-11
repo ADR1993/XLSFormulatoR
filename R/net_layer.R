@@ -102,8 +102,14 @@ net_layer = function(filename, type, layer, layer_question){
            paste0(layer, "_by_hand"), 
            "Write the name of the person",
            rep(NA, length(colnames) - 3))
+
+  calcualate6 = c("calculate", 
+                  paste0(layer, "_hash"), 
+                  rep(NA, 5),
+                  paste0("digest(${", layer, "_by_hand}, 'SHA-1'}"),
+                  rep(NA, 2))
   
-  calculate6 = c("calculate", 
+  calculate7 = c("calculate", 
                  paste0(layer, "_id_display_out"), 
                  rep(NA, 5),
                  "${focal_id}",
@@ -139,6 +145,7 @@ net_layer = function(filename, type, layer, layer_question){
               calculate5,
               text, 
               calculate6,
+              calculate7,
               end_group3,
               
               # ending
