@@ -39,7 +39,7 @@ questions = list(
  "receiving" = "Please list the names of people who have given money to you in the last 30 days.")
 
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpg", photo_confirm = "all", alter_questions = NULL)
+                type = "jpeg", photo_confirm = "all", alter_questions = NULL)
 ```
 
 ### Follow-up questions
@@ -62,7 +62,7 @@ alter_questions = list("Age" = alter_question(prompt = "How old is this person?"
 The question list can then be passed on as an argument to the `compile_xlsform` function. 
 ```{r}
 compile_xlsform(layer_list = questions, filename = "names.csv",
-                type = "jpg", photo_confirm = "all", alter_questions = alter_questions)
+                type = "jpeg", photo_confirm = "all", alter_questions = alter_questions)
 ```
 An important feature of the XLSFormulatoR name search is that it allows the addition of out-of-roster individuals to the nominations. 
 Researchers have to add a slot called "out_of_roster" in the `names.csv`file that is attached to the project. 
