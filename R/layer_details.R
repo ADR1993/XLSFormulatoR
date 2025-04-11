@@ -7,9 +7,17 @@
 
 layer_details = function(layer_vec, alter_questions){
   
+  initial_calc = c("calculate", 
+                   paste0(layer_vec, "_string"), 
+                   rep(NA, 5),
+                   paste0("join(\"\", ${", layer_vec, "_name})"),
+                   rep(NA, 2))
+  
   begin_repeat = c("begin_repeat",
                    paste0(layer_vec, "_details"), 
-                   rep(NA, 7),
+                   rep(NA, 3),
+                   paste0("string-length(${", layer_vec, "_string}) > 0"),
+                   rep(NA, 3),
                    paste0("count(${", layer_vec, "_repeat})"))
   
   calculate1 = c("calculate",
@@ -66,7 +74,7 @@ layer_details = function(layer_vec, alter_questions){
   #stack together the followup questions
   followup_df = do.call(rbind, ls) 
   
-  df = rbind(begin_repeat, calculate1, calculate2, calculate3, calculate4, followup_df, end_repeat)
+  df = rbind(initial_calc, begin_repeat, calculate1, calculate2, calculate3, calculate4, followup_df, end_repeat)
   
   return(df)
 }

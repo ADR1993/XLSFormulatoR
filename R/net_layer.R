@@ -59,7 +59,7 @@ net_layer = function(filename, type, layer, layer_question){
                    paste0(layer, "_photo_confirmation"), 
                    rep(NA, 2), 
                    "field-list", 
-                   paste0("not(selected(${", layer, "_name}, 'out_of_roster'))"),
+                   paste0("${", layer, "_name} != \"\" and not(selected(${", layer, "_name}, 'out_of_roster'))"),
                    rep(NA, length(colnames) - 6))
   calculate2 = c("calculate", 
                  paste0("network_layer_", layer),
