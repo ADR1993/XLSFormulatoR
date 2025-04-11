@@ -106,7 +106,7 @@ net_layer = function(filename, type, layer, layer_question){
   calculate6 = c("calculate", 
                   paste0(layer, "_hash"), 
                   rep(NA, 5),
-                  paste0("digest(${", layer, "_by_hand}, 'SHA-1'}"),
+                  paste0("digest(${", layer, "_by_hand}, 'SHA-1')"),
                   rep(NA, 2))
   
   calculate7 = c("calculate", 
