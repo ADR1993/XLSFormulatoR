@@ -7,7 +7,7 @@
 #' @return A data frame containing a network edgelist, or a list containing a network edgelist and a hash list for out of roster individuals. 
 #' @export
 
-kobo_to_edgelist = function(path, questions, return_hash = TRUE, save = FALSE){
+kobo_to_edgelist = function(path, questions, save = FALSE){
   
   #extract layer names and repeat group names
   q_name = names(questions)
@@ -29,29 +29,14 @@ kobo_to_edgelist = function(path, questions, return_hash = TRUE, save = FALSE){
     ls[[i]] = layer_to_edgelist(vec[[i]], q_name[[i]])
   }
   
-  #join edgelists and hashlists
-  edgelist = do.call(rbind, lapply(ls, function(x) x[[1]]))
-  hashlist = do.call(rbind, lapply(ls, function(x) x[[2]]))
-  
-  #create a list with both edgelist and hashlist
-  output = list("edge_list" = edgelist, "hash_list" = hashlist)
-  
-  #conditional outputs
-  if(return_hash == FALSE && save == FALSE){
-    return(edgelist)
-  } 
-  if(return_hash == FALSE && save == TRUE){
+  #join edgelists
+  edgelist = do.call(rbind, ls)
+
+  #saving
+  if(save == TRUE){
     writexl::write_xlsx(list(edge_list = edgelist), "edgelist.xlsx")
-    return(edgelist)
-  } 
-  if(return_hash == TRUE && save == FALSE){
-    return(output)
+    
   }
-  if(return_hash == TRUE && save == TRUE){
-    writexl::write_xlsx(output, "edgelist.xlsx")
-    return(output)
-  }
-  if(!return_hash %in% c(TRUE, FALSE)){
-    stop("Invalid return_hash argument")
-  }
+  
+  return(edgelist)
 }
