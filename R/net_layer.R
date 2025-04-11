@@ -103,7 +103,7 @@ net_layer = function(filename, type, layer, layer_question){
            "Write the name of the person",
            rep(NA, length(colnames) - 3))
 
-  calcualate6 = c("calculate", 
+  calculate6 = c("calculate", 
                   paste0(layer, "_hash"), 
                   rep(NA, 5),
                   paste0("digest(${", layer, "_by_hand}, 'SHA-1'}"),
