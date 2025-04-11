@@ -1,11 +1,11 @@
 #' layer_details function file.
 #'
 #' @param layer_vec The name of the network layer for which the follow-up questions are deployed.
-#' @param q_list Follow-up questions list.
+#' @param follow_up_questions Follow-up questions list.
 #' @return A data frame containing a single layer of follow-up questions in an XLSForm repeat group.
 #' @export
 
-layer_details = function(layer_vec, alter_questions){
+layer_details = function(layer_vec, follow_up_questions){
   
   initial_calc = c("calculate", 
                    paste0(layer_vec, "_string"), 
@@ -20,25 +20,31 @@ layer_details = function(layer_vec, alter_questions){
                    rep(NA, 3),
                    paste0("count(${", layer_vec, "_repeat})"))
   
-  calculate1 = c("calculate",
+  calculate1 = c("calculate", 
+                 paste0("current_", layer_vec, "_hash"),
+                 rep(NA, 5),
+                 paste0("indexed-repeat(${", layer_vec, "_hash}, ${", layer_vec, "_repeat}, position(..))"),
+                 rep(NA, 2))
+  
+  calculate2 = c("calculate",
                  paste0("current_", layer_vec, "_label"),
                  rep(NA, 5), 
                  paste0("indexed-repeat(${", layer_vec, "_label}, ${", layer_vec, "_repeat}, position(..))"),
                  rep(NA, 2))
   
-  calculate2 = c("calculate",
+  calculate3 = c("calculate",
                  paste0("current_", layer_vec, "_name"),
                  rep(NA, 5), 
                  paste0("indexed-repeat(${", layer_vec, "_name}, ${", layer_vec, "_repeat}, position(..))"),
                  rep(NA, 2))
   
-  calculate3 = c("calculate",
+  calculate4 = c("calculate",
                  paste0("current_", layer_vec, "_label_out_of_roster"),
                  rep(NA, 5), 
                  paste0("indexed-repeat(${", layer_vec, "_by_hand}, ${", layer_vec, "_repeat}, position(..))"),
                  rep(NA, 2))
   
-  calculate4 = c("calculate", 
+  calculate5 = c("calculate", 
                  paste0("current_", layer_vec, "_out_of_roster_indicator"),
                  rep(NA, 5),
                  paste0("if(string-length(${current_", layer_vec, "_label_out_of_roster}) = 0, 0, 1)"),
@@ -74,7 +80,7 @@ layer_details = function(layer_vec, alter_questions){
   #stack together the followup questions
   followup_df = do.call(rbind, ls) 
   
-  df = rbind(initial_calc, begin_repeat, calculate1, calculate2, calculate3, calculate4, followup_df, end_repeat)
+  df = rbind(initial_calc, begin_repeat, calculate1, calculate2, calculate3, calculate4, calculate5, followup_df, end_repeat)
   
   return(df)
 }

@@ -4,12 +4,12 @@
 #' @param filename The name of the external csv file with names and PIDS.
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
 #' @param photo_confirm A value that specifies whether the photo confirmation group needs to be included in the output. 
-#' @param q_list A named list of follow-up questions created using the alter_question() function.
+#' @param follow_up_questions A named list of follow-up questions created using the alter_question() function.
 #' Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", alter_questions = NULL){
+compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", follow_up_questions = NULL){
   
   if(!photo_confirm %in% c("all", "only_focal", "none")){
     stop("photo_confirm must be one of: all, only_focal, none")
@@ -63,13 +63,13 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   # Bind all the elements of the vector: this is an object containing all the network questions
   obj2 = do.call(rbind, vec)
   
-  #create the follow-up groups for each layer if the alter_questions list is supplied
-  if(is.null(alter_questions) == FALSE){
+  #create the follow-up groups for each layer if the follow_up_questions list is supplied
+  if(is.null(follow_up_questions) == FALSE){
     
     follow_up_list = vector(mode = "list", length = length(layer_vec))
     
     for(i in 1:length(layer_vec)){
-      follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], alter_questions = alter_questions)
+      follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], follow_up_questions = follow_up_questions)
     }
     
     obj3 = do.call(rbind, follow_up_list)
@@ -85,10 +85,10 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   colnames(survey) = colnames(form)
   
   ### Create the choices sheet of the xlsform
-  #if there is at least a choice list provided in the alter_questions object
-  if(is.null(alter_questions) == FALSE){
+  #if there is at least a choice list provided in the follow_up_questions object
+  if(is.null(follow_up_questions) == FALSE){
     
-    q_choices = sapply(alter_questions, function(x) x[[3]])
+    q_choices = sapply(follow_up_questions, function(x) x[[3]])
     
     if(any(!sapply(q_choices, is.null)) == TRUE){ 
       
@@ -111,13 +111,13 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
       colnames(choices) = c("list_name", "name", "label")
     }
     
-    #if no choice list is supplied in the alter_questions object
+    #if no choice list is supplied in the follow_up_questions object
     if(any(!sapply(q_choices, is.null)) == FALSE){ 
       choices = data.frame(rbind(rep(NA, 3)))
       colnames(choices) = c("list_name", "name", "label")
     }
   } else {
-    #empty choice sheet in case alter_questions list not supplied
+    #empty choice sheet in case follow_up_questions list not supplied
     choices = data.frame(rbind(rep(NA, 3)))
     colnames(choices) = c("list_name", "name", "label")
   }
