@@ -17,12 +17,12 @@ layer_to_edgelist = function(d, layer){
             if (d[[paste0(layer, "_name")]][i] != "out_of_roster") {
                 d$focal[i] = d[[paste0(layer, "_id_display")]][i]
                 d$layer[i] = d[[paste0("network_layer_", layer)]][i]
-                d$alter[i] = d[[paste0(layer, "_hash")]][i]
+                d$alter[i] = d[[paste0(layer, "_name")]][i]
             }
             else {
                 d$focal[i] = d[[paste0(layer, "_id_display_out")]][i]
                 d$layer[i] = d[[paste0("network_layer_", layer, "_out")]][i]
-                d$alter[i] = d[[paste0(layer, "_name")]][i]
+                d$alter[i] = d[[paste0(layer, "_hash")]][i]
             }
         }
         edgelist = d[, c("focal", "alter", "layer")]
@@ -33,5 +33,6 @@ layer_to_edgelist = function(d, layer){
     }
     return(edgelist)
 }
+
 
 
