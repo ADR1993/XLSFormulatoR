@@ -5,7 +5,7 @@
 #' @return A list containing a network edgelist and a hash list for out of roster individuals for the given network layer. 
 #' @export
 
-layer_to_edgelist = function (d, layer) = {
+layer_to_edgelist = function(d, layer){
     d = d %>% filter(!is.na(.data[[paste0(layer, "_name")]]))                          # Fix the small-bug coming from an NA row if the users goes back in Kobo
 
     if(sum(is.na(d[, which(colnames(d) == paste0(layer, "_name"))][[1]])) != nrow(d)){ # WTF does this do?
@@ -33,4 +33,5 @@ layer_to_edgelist = function (d, layer) = {
     }
     return(edgelist)
 }
+
 
