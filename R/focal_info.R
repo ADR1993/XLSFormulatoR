@@ -2,10 +2,15 @@
 #'
 #' @param filename The name of the external csv file with names and PIDS.
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
+#' @param headers Acessory prompts for internationalization.
 #' @return A data frame containing focal information in the XLSForm style. 
 #' @export
 
-focal_info = function(filename, type){
+focal_info = function(filename, type, headers = NULL){
+
+  if(is.null(headers)){
+    headers = c("Select name of focal person", "Confirm the identity of the interviewed person")
+  }
   
   # Error message if the argument is not a character
   if(is.character(filename) == FALSE){
@@ -29,7 +34,7 @@ focal_info = function(filename, type){
   # Now build focal-info group that depends on external csv file
   begin_group1 = c("begin_group", "focal_info", rep(NA, 2), "field-list", rep(NA, length(colnames) - 5))
   arg1 = c(paste("select_one_from_file", filename),
-           "focal_id", "Select name of focal person", NA, "minimal autocomplete", 
+           "focal_id", headers[1], NA, "minimal autocomplete", 
            rep(NA, length(colnames) - 5))
   end_group1 = c("end_group", "focal_info", rep(NA, length(colnames) - 2))
   
@@ -47,7 +52,7 @@ focal_info = function(filename, type){
   row2 = c("note", "focal_image", rep(NA, 6), "${focal_image_source}", rep(NA, 1))
   row3 = c("note", 
            "focal_id_confirmation", 
-           "Confirm the identity of the interviewed person", 
+           headers[2], 
            rep(NA, length(colnames) - 3))
   end_group2 = c("end_group", "focal_confirmation", rep(NA, length(colnames) - 2))
   

@@ -4,10 +4,15 @@
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
 #' @param layer The shortname for the question or network layer.
 #' @param layer_question The full question to be read to respodents.
+#' @param headers Acessory prompts for internationalization.
 #' @return A data frame containing the XLSForm style for one network layer. 
 #' @export
 
-net_layer = function(filename, type, layer, layer_question){
+net_layer = function(filename, type, layer, layer_question, headers = NULL){
+
+  if(is.null(headers)){
+    headers = c("Write the name of the person", "List individuals", "another person")
+  }
   
   # XLSForm column names
   colnames = c("type", "name", "label", "hint", "appearance", 
@@ -23,7 +28,7 @@ net_layer = function(filename, type, layer, layer_question){
   }
   
   # Begin repeat
-  begin_repeat = c("begin_repeat", paste0(layer, "_repeat"), "another person", rep(NA, length(colnames) - 3))
+  begin_repeat = c("begin_repeat", paste0(layer, "_repeat"), headers[3], rep(NA, length(colnames) - 3))
   
   # ID search
   begin_group1 = c("begin_group", 
@@ -39,7 +44,7 @@ net_layer = function(filename, type, layer, layer_question){
   
   select_from_file = c(paste("select_one_from_file", filename),
                        paste0(layer, "_name"),
-                       "List individuals", 
+                       headers[2], 
                        NA, 
                        "minimal autocomplete", 
                        rep(NA, length(colnames) - 5))
@@ -100,7 +105,7 @@ net_layer = function(filename, type, layer, layer_question){
   
   text = c("text",
            paste0(layer, "_by_hand"), 
-           "Write the name of the person",
+           headers[1],
            rep(NA, length(colnames) - 3))
 
   calculate6 = c("calculate", 

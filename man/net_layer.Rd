@@ -4,7 +4,7 @@
 \alias{net_layer}
 \title{net_layer function file.}
 \usage{
-net_layer(filename, type, layer, layer_question)
+net_layer(filename, type, layer, layer_question, headers = NULL)
 }
 \arguments{
 \item{filename}{The name of the external csv file with names and PIDS.}
@@ -14,6 +14,8 @@ net_layer(filename, type, layer, layer_question)
 \item{layer}{The shortname for the question or network layer.}
 
 \item{layer_question}{The full question to be read to respodents.}
+
+\item{headers}{Acessory prompts for internationalization.}
 }
 \value{
 A data frame containing the XLSForm style for one network layer.

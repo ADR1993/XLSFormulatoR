@@ -4,12 +4,14 @@
 \alias{focal_info}
 \title{focal_info function file.}
 \usage{
-focal_info(filename, type)
+focal_info(filename, type, headers = NULL)
 }
 \arguments{
 \item{filename}{The name of the external csv file with names and PIDS.}
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
+
+\item{headers}{Acessory prompts for internationalization.}
 }
 \value{
 A data frame containing focal information in the XLSForm style.

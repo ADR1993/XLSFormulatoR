@@ -9,7 +9,8 @@ compile_xlsform(
   filename = "names.csv",
   type = "jpg",
   photo_confirm = "all",
-  follow_up_questions = NULL
+  follow_up_questions = NULL,
+  headers = NULL
 )
 }
 \arguments{
@@ -21,7 +22,9 @@ compile_xlsform(
 
 \item{photo_confirm}{A value that specifies whether the photo confirmation group needs to be included in the output.}
 
-\item{follow_up_questions}{A named list of follow-up questions created using the alter_question() function.
+\item{follow_up_questions}{A named list of follow-up questions created using the alter_question() function.}
+
+\item{headers}{Acessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
 Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{

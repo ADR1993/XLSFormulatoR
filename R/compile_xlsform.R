@@ -5,12 +5,18 @@
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
 #' @param photo_confirm A value that specifies whether the photo confirmation group needs to be included in the output. 
 #' @param follow_up_questions A named list of follow-up questions created using the alter_question() function.
+#' @param headers Acessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
 #' Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", follow_up_questions = NULL){
-  
+compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", follow_up_questions = NULL, headers = NULL){
+  if(is.null(headers)){
+    headers = NULL
+    headers[[1]] = NULL
+    headers[[2]] = NULL
+  }
+
   if(!photo_confirm %in% c("all", "only_focal", "none")){
     stop("photo_confirm must be one of: all, only_focal, none")
   }
@@ -28,35 +34,38 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   
   # Loop conditionally based on the photo confirmation argument
   if(photo_confirm == "all"){
-    obj1 = focal_info(filename, type)
+    obj1 = focal_info(filename, type, headers = headers[[1]])
     
     for(i in 1:length(layer_list)){
       vec[[i]] = net_layer(filename = filename, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
-                           type = type)
+                           type = type, 
+                           headers = headers[[2]])
     }
   } 
   
   if(photo_confirm == "only_focal"){  
-    obj1 = focal_info(filename, type)
+    obj1 = focal_info(filename, type, headers = headers[[1]])
     
     for(i in 1:length(layer_list)){
       vec[[i]] = net_layer(filename = filename, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
-                           type = type)[-c(7:12),]
+                           type = type, 
+                           headers = headers[[2]])[-c(7:12),]
     }
   }
   
   if(photo_confirm == "none"){  
-    obj1 = focal_info(filename, type)[-c(9:13),]
+    obj1 = focal_info(filename, type, headers = headers[[1]])[-c(9:13),]
     
     for(i in 1:length(layer_list)){
       vec[[i]] = net_layer(filename = filename, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
-                           type = type)[-c(7:12),]
+                           type = type,
+                           headers = headers[[2]])[-c(7:12),]
     }
   }
   
