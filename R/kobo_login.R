@@ -10,7 +10,7 @@ kobo_login = function(url, username, password=NULL){
   if(is.null(password)){
   password = readline(prompt="Enter your password for KoboToolbox: ")
    }
-  api_token = KoboconnectR::get_kobo_token(url = url, uname = username, pwd = password)$token
+  api_token = get_kobo_token(url = url, username = username, password = password)
   password = NULL
   return(api_token)
 }
