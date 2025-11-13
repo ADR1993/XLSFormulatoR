@@ -4,10 +4,10 @@
 \alias{get_kobo_token}
 \title{Function to get a Kobo token.}
 \usage{
-get_kobo_token(url, username, password)
+get_kobo_token(server_id, username, password)
 }
 \arguments{
-\item{url}{The url for the base server on Kobo.}
+\item{server_id}{The url for the base server on Kobo (no https://).}
 
 \item{username}{Username on Kobo.}
 

@@ -6,7 +6,8 @@
 \usage{
 compile_xlsform(
   layer_list,
-  filename = "names.csv",
+  filename_roster = "names.csv",
+  filename_xlsform = "network_collect.xlsx",
   type = "jpg",
   photo_confirm = "all",
   follow_up_questions = NULL,
@@ -16,7 +17,9 @@ compile_xlsform(
 \arguments{
 \item{layer_list}{A labeled list of network questions to construct.}
 
-\item{filename}{The name of the external csv file with names and PIDS.}
+\item{filename_roster}{The name of the external csv file with names and PIDS.}
+
+\item{filename_xlsform}{The name of the XLSForm to be created.}
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
 

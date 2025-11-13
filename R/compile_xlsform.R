@@ -1,7 +1,8 @@
 #' compile_xlsform function file.
 #'
 #' @param layer_list A labeled list of network questions to construct.
-#' @param filename The name of the external csv file with names and PIDS.
+#' @param filename_roster The name of the external csv file with names and PIDS.
+#' @param filename_xlsform The name of the XLSForm to be created.
 #' @param type The file extension of the photographs. Should be "jpg" or "png".
 #' @param photo_confirm A value that specifies whether the photo confirmation group needs to be included in the output. 
 #' @param follow_up_questions A named list of follow-up questions created using the alter_question() function.
@@ -10,7 +11,7 @@
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
-compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", photo_confirm = "all", follow_up_questions = NULL, headers = NULL){
+compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_xlsform="network_collect.xlsx", type = "jpg", photo_confirm = "all", follow_up_questions = NULL, headers = NULL){
   if(is.null(headers)){
     headers = NULL
     headers[[1]] = NULL
@@ -34,10 +35,10 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   
   # Loop conditionally based on the photo confirmation argument
   if(photo_confirm == "all"){
-    obj1 = focal_info(filename, type, headers = headers[[1]])
+    obj1 = focal_info(filename_roster, type, headers = headers[[1]])
     
     for(i in 1:length(layer_list)){
-      vec[[i]] = net_layer(filename = filename, 
+      vec[[i]] = net_layer(filename = filename_roster, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
                            type = type, 
@@ -46,10 +47,10 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   } 
   
   if(photo_confirm == "only_focal"){  
-    obj1 = focal_info(filename, type, headers = headers[[1]])
+    obj1 = focal_info(filename_roster, type, headers = headers[[1]])
     
     for(i in 1:length(layer_list)){
-      vec[[i]] = net_layer(filename = filename, 
+      vec[[i]] = net_layer(filename = filename_roster, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
                            type = type, 
@@ -58,10 +59,10 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
   }
   
   if(photo_confirm == "none"){  
-    obj1 = focal_info(filename, type, headers = headers[[1]])[-c(9:13),]
+    obj1 = focal_info(filename_roster, type, headers = headers[[1]])[-c(9:13),]
     
     for(i in 1:length(layer_list)){
-      vec[[i]] = net_layer(filename = filename, 
+      vec[[i]] = net_layer(filename = filename_roster, 
                            layer = layer_vec[i], 
                            layer_question = layer_question[i], 
                            type = type,
@@ -136,5 +137,5 @@ compile_xlsform = function(layer_list, filename = "names.csv", type = "jpg", pho
                       choices = choices)
   
   # Export xlsform to working directory
-  writexl::write_xlsx(xlsform_list, "network_collect.xlsx")
+  writexl::write_xlsx(xlsform_list, filename_xlsform)
 }

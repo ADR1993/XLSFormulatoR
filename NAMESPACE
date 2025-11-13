@@ -2,6 +2,7 @@
 
 export(alter_question)
 export(compile_xlsform)
+export(convert_block_to_survey)
 export(create_export)
 export(delete_all_files)
 export(delete_files)

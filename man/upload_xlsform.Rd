@@ -4,16 +4,36 @@
 \alias{upload_xlsform}
 \title{Function to upload a new XLSForm to KoboToolbox.}
 \usage{
-upload_xlsform(url, xlsform_path, api_token, form_name = NULL)
+upload_xlsform(
+  server_id,
+  xlsform_path,
+  api_token,
+  description = NULL,
+  country_name = NULL,
+  country_code = NULL,
+  sector = NULL,
+  form_name = NULL,
+  max_attempts = 180
+)
 }
 \arguments{
-\item{url}{The base Kobo API URL.}
+\item{server_id}{The base Kobo URL (without https://).}
 
 \item{xlsform_path}{The local path to the XLSForm.}
 
 \item{api_token}{The API token used to authorize the request.}
 
+\item{description}{Optional description text.}
+
+\item{country_name}{Optional human-readable country label (e.g., "Algeria").}
+
+\item{country_code}{Optional ISO 3-letter country code (e.g., "DZA").}
+
+\item{sector}{Optional sector label (e.g., "Educational Services / Higher Education").}
+
 \item{form_name}{The name to assign to the survey in Kobo (optional).}
+
+\item{max_attempts}{The number of times to fetch asset.}
 }
 \value{
 Parsed response (list) from Kobo API with form metadata.

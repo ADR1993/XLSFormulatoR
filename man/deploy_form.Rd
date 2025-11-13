@@ -13,7 +13,7 @@ deploy_form(api_url, asset_id, api_token, redeploy = FALSE)
 
 \item{api_token}{Your Kobo API token.}
 
-\item{redeploy}{Logical; if TRUE, redeploy (unarchive) instead of first deploy.}
+\item{redeploy}{Logical; if TRUE, redeploy instead of first deploy.}
 }
 \value{
 TRUE if deployment successful, FALSE otherwise.

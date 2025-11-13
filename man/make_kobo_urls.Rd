@@ -4,10 +4,10 @@
 \alias{make_kobo_urls}
 \title{Function that lists media files associated with a project.}
 \usage{
-make_kobo_urls(url, asset_id)
+make_kobo_urls(server_id, asset_id)
 }
 \arguments{
-\item{url}{The Kobo server url.}
+\item{server_id}{The Kobo server url (without https://).}
 
 \item{asset_id}{The asset.}
 }
