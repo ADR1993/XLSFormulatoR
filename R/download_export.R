@@ -7,11 +7,11 @@
 #' @return This just pushes file. No return. 
 #' @export
 
-download_export = function(export_url, folder_path, api_token, overwrite = FALSE){
+download_export = function(export_url, folder_path, api_token, wait_time = 13, overwrite = FALSE){
   # Send a GET request with the export instance URL to retrieve the URL of the actual data file
   # Sleepy sleepy
   print("Preparing your data!")
-  Sys.sleep(7)
+  Sys.sleep(wait_time)
 
   query = httr::GET(url = export_url, 
       httr::add_headers(Authorization = paste("Token", api_token)))
@@ -28,7 +28,7 @@ download_export = function(export_url, folder_path, api_token, overwrite = FALSE
   filename = utils::tail(b, n = 1)
   
   # Create filepath
-  filepath = paste0(folder_path, "/", filename)
+  filepath = paste0(folder_path, filename)
 
   # Perform GET request
   res = httr::GET(url = data_loc,
@@ -42,4 +42,5 @@ download_export = function(export_url, folder_path, api_token, overwrite = FALSE
     message("Download failed. Status code ", httr::status_code(res))
   }
 }
+
 
