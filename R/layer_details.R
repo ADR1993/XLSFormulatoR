@@ -2,10 +2,11 @@
 #'
 #' @param layer_vec The name of the network layer for which the follow-up questions are deployed.
 #' @param follow_up_questions Follow-up questions list.
+#' @param follow_up_type A string: "all", "external", or "none", which controls which follow-up questions get asked.
 #' @return A data frame containing a single layer of follow-up questions in an XLSForm repeat group.
 #' @export
 
-layer_details = function(layer_vec, follow_up_questions){
+layer_details = function(layer_vec, follow_up_questions, follow_up_type){
   
   initial_calc = c("calculate", 
                    paste0(layer_vec, "_string"), 
@@ -68,19 +69,26 @@ layer_details = function(layer_vec, follow_up_questions){
     
     #if choice list is not supplied
     if(is.null(q_choices[[i]]) == TRUE){
-      ls[[i]] = follow_q(layer_vec, q_names[i], q_prompts[i], q_types[i])
+      ls[[i]] = follow_q(layer_vec, q_names[i], q_prompts[i], q_types[i], follow_up_type = follow_up_type)
     }
     
     #if choice list is supplied
     if(is.null(q_choices[[i]]) == FALSE){
-      ls[[i]] = follow_q(layer_vec, q_names[i], q_prompts[i], q_types[i], q_choices[i])
+      ls[[i]] = follow_q(layer_vec, q_names[i], q_prompts[i], q_types[i], q_choices[i], follow_up_type = follow_up_type)
     }
   }
   
   #stack together the followup questions
   followup_df = do.call(rbind, ls) 
+
+  #final row to print focal ID
+  print_id = c("calculate", 
+    paste0("current_", layer_vec, "_id_display"), 
+    rep(NA, 5), 
+    "${focal_id}", 
+    rep(NA, 2))
   
-  df = rbind(initial_calc, begin_repeat, calculate1, calculate2, calculate3, calculate4, calculate5, followup_df, end_repeat)
+  df = rbind(initial_calc, begin_repeat, calculate1, calculate2, calculate3, calculate4, calculate5, followup_df, print_id, end_repeat)
   
   return(df)
 }

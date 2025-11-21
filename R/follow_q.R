@@ -5,14 +5,19 @@
 #' @param q_prompt The prompt of the question (as a string).
 #' @param q_type Question type as a string. The options are "text", "decimal", "select_one", and "likert".
 #' @param choice_list A vector of strings that contains the options for a select_one or a likert question. 
+#' @param follow_up_type A string: "all", "external", or "none", which controls which follow-up questions get asked.
 #' @return A matrix corresponding to the input question in XLSForm format. 
 #' @export
 
-follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL){
+follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL, follow_up_type){
   
   choice = paste0(q_name, "_scale")
   
   if(q_type == "select_one"){
+    
+    if(is.null(choice_list)){
+      stop("Please include a choice list")
+    }
     
     #question row for in-sample people
     row_in = c(paste(q_type, choice), 
@@ -37,6 +42,10 @@ follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL){
   
   if(q_type == "likert"){
     
+    if(is.null(choice_list)){
+      stop("Please include a choice list")
+    }
+
     #question row for in-sample people
     row_in = c(paste("select_one", choice), 
                paste0("current_", layer, "_", q_name),
@@ -83,5 +92,19 @@ follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL){
   }
   
   obj = rbind(row_in, row_out)
+
+if(follow_up_type == "external"){
+    drop = c()
+  for(i in 1:nrow(obj)){
+    if(obj[i, 6] == paste0("${current_", layer, "_out_of_roster_indicator} = 0")){
+      drop[i] = 1
+    } else {
+      drop[i] = 0
+    }
+  }
+  obj = obj[which(drop == 0),]
+}
+
+
   return(obj)
 }

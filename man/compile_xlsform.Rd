@@ -11,6 +11,8 @@ compile_xlsform(
   type = "jpg",
   photo_confirm = "all",
   follow_up_questions = NULL,
+  follow_up_type = NULL,
+  extra_questions = NULL,
   headers = NULL
 )
 }
@@ -27,7 +29,11 @@ compile_xlsform(
 
 \item{follow_up_questions}{A named list of follow-up questions created using the alter_question() function.}
 
-\item{headers}{Acessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
+\item{follow_up_type}{A string: "all", "external", or "none", which controls which follow-up questions get asked.}
+
+\item{extra_questions}{A named list of extra questions created using the extra_question() function.}
+
+\item{headers}{Accessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
 Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{
