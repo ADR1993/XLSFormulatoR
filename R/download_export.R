@@ -7,7 +7,7 @@
 #' @return This just pushes file. No return. 
 #' @export
 
-download_export = function(export_url, folder_path, api_token, wait_time = 13, overwrite = FALSE){
+download_export = function(export_url, folder_path, api_token, wait_time = 5, overwrite = FALSE){
   # Send a GET request with the export instance URL to retrieve the URL of the actual data file
   # Sleepy sleepy
   print("Preparing your data!")
@@ -42,5 +42,6 @@ download_export = function(export_url, folder_path, api_token, wait_time = 13, o
     message("Download failed. Status code ", httr::status_code(res))
   }
 }
+
 
 
