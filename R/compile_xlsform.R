@@ -7,14 +7,27 @@
 #' @param photo_confirm A value that specifies whether the photo confirmation group needs to be included in the output. 
 #' @param follow_up_questions A named list of follow-up questions created using the alter_question() function.
 #' @param follow_up_type A string: "all", "external", or "none", which controls which follow-up questions get asked.
-#' @param extra_questions A named list of extra questions created using the extra_question() function.
+#' @param extra_questions_before A named list of extra questions created using the extra_question() function. (These appear before the name generators).
+#' @param extra_questions_after A named list of extra questions created using the extra_question() function. (These appear after the name generators).
 #' @param headers Accessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
 #' Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
 compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_xlsform="network_collect.xlsx", type = "jpg", photo_confirm = "all", 
-                           follow_up_questions = NULL, follow_up_type = NULL, extra_questions = NULL, headers = NULL){
+                           follow_up_questions = NULL, follow_up_type = NULL, extra_questions_before = NULL, extra_questions_after = NULL, headers = NULL){
+
+  # Build XLSForm header
+  colnames = c("type", "name", "label", "hint", "appearance", "relevant", "choice_filter", "calculation", "media::image", "repeat_count")
+  start = c(rep("start", 2), rep(NA, times = length(colnames) - 2))
+  end = c(rep("end", 2), rep(NA, times = length(colnames) - 2))
+  today = c(rep("today", 2), rep(NA, times = length(colnames) - 2))
+  username = c(rep("username", 2), rep(NA, times = length(colnames) - 2))
+
+  header_table = rbind(start, end, today, username)
+  colnames(header_table) = colnames
+
+###################################################################### Prep name generator stucture
   if(is.null(follow_up_type)){
     follow_up_type = "none"
   }
@@ -39,7 +52,6 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
     layer_vec[i] = names(layer_list)[i]
     layer_question[i] = layer_list[[i]]
   }
-  
   
   # List to store the output of the net_layer function
   vec = vector(mode = "list", length = length(layer_list))
@@ -84,9 +96,8 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
   # Bind all the elements of the vector: this is an object containing all the network questions
   obj2 = do.call(rbind, vec)
   
-  #create the follow-up groups for each layer if the follow_up_questions list is supplied
+  # Create the follow-up groups for each layer if the follow_up_questions list is supplied
   if(follow_up_type != "none"){
-    
     follow_up_list = vector(mode = "list", length = length(layer_vec))
     
     for(i in 1:length(layer_vec)){
@@ -106,10 +117,10 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
 
   # Turn it into dataframe for xlsx export
   survey = data.frame(form)
-  colnames(survey) = colnames(form)
+  colnames(survey) = colnames
   
   ### Create the choices sheet of the xlsform
-  #if there is at least a choice list provided in the follow_up_questions object
+  # if there is at least a choice list provided in the follow_up_questions object
   if(is.null(follow_up_questions) == FALSE){
     
     q_choices = sapply(follow_up_questions, function(x) x[[3]])
@@ -147,17 +158,21 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
   }
 
 
-  #######################
+###################################################################### Extra questions
+ survey_head = survey[0,, drop=FALSE]
+ survey_tail = survey[0,, drop=FALSE]
+ colnames(survey_head) = colnames
+ colnames(survey_tail) = colnames
 
-  if(is.null(extra_questions) == FALSE){
-
-    q_names = gsub("\\s+", "_", trimws(names(extra_questions))) #question names to use in pasting
-    q_prompts = sapply(extra_questions, function(x) x[[1]]) #question prompts to use in pasting
-    q_types = sapply(extra_questions, function(x) x[[2]]) #question types to use in pasting
-    q_choices = sapply(extra_questions, function(x) x[[3]]) #choice list for select_one and likert questions
-
-    for(i in 1:length(extra_questions)){
-      survey = rbind(survey, extra_q(q_names[i], q_prompts[i], q_types[i], choice_list = q_choices[[i]]))
+ # Starting questions
+  if(is.null(extra_questions_before) == FALSE){
+    q_names = gsub("\\s+", "_", trimws(names(extra_questions_before))) #question names to use in pasting
+    q_prompts = sapply(extra_questions_before, function(x) x[[1]]) #question prompts to use in pasting
+    q_types = sapply(extra_questions_before, function(x) x[[2]]) #question types to use in pasting
+    q_choices = sapply(extra_questions_before, function(x) x[[3]]) #choice list for select_one and likert questions
+    
+    for(i in 1:length(extra_questions_before)){
+      survey_head = rbind(survey_head, extra_q(q_names[i], q_prompts[i], q_types[i], choice_list = q_choices[[i]]))
     }
 
     extra_choice_label_vec = Filter(Negate(is.null), q_choices)
@@ -176,9 +191,37 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
     choices = choices[complete.cases(choices),]
   }
 
+   # Tailing questions
+  if(is.null(extra_questions_after) == FALSE){
+    q_names = gsub("\\s+", "_", trimws(names(extra_questions_after))) #question names to use in pasting
+    q_prompts = sapply(extra_questions_after, function(x) x[[1]]) #question prompts to use in pasting
+    q_types = sapply(extra_questions_after, function(x) x[[2]]) #question types to use in pasting
+    q_choices = sapply(extra_questions_after, function(x) x[[3]]) #choice list for select_one and likert questions
+    
+    for(i in 1:length(extra_questions_after)){
+      survey_tail = rbind(survey_tail, extra_q(q_names[i], q_prompts[i], q_types[i], choice_list = q_choices[[i]]))
+    }
+
+    extra_choice_label_vec = Filter(Negate(is.null), q_choices)
+    extra_choice_label = unlist(extra_choice_label_vec)
+    extra_choice_name = gsub("\\s+", "_", trimws(extra_choice_label))
+    extra_list = vector(mode = "list", length = length(extra_choice_label_vec))
+    for(i in 1:length(extra_choice_label_vec)){
+      extra_list[[i]] = rep(gsub("\\s+", "_", names(extra_choice_label_vec)[i]), length(extra_choice_label_vec[[i]]))
+      }
+    extra_choice_list_name = paste0(unlist(extra_list), "_scale")
+
+    extra_choices = data.frame(extra_choice_list_name, extra_choice_name, extra_choice_label)
+    colnames(extra_choices) = colnames(choices)
+
+    choices = rbind(choices, extra_choices)
+    choices = choices[complete.cases(choices),]
+  }
 
   # Create list to turn into xlsform export
-  xlsform_list = list(survey = survey,
+   colnames(survey_head) = colnames(survey)
+   colnames(survey_tail) = colnames(survey)
+  xlsform_list = list(survey = rbind(header_table, survey_head, survey, survey_tail),
                       choices = choices)
   
   # Export xlsform to working directory

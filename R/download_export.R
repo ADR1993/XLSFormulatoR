@@ -3,6 +3,7 @@
 #' @param export_url The url for the export on Kobo.
 #' @param folder_path The path to save a file to.
 #' @param api_token The token used to sign the request.
+#' @param wait_time Seconds to wait before starting download. Some time is needed for data to be compiled.
 #' @param overwrite Allow overwriting?.
 #' @return This just pushes file. No return. 
 #' @export

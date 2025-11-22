@@ -9,7 +9,7 @@ extra_question(prompt, type, options = NULL)
 \arguments{
 \item{prompt}{The text prompt that will be displayed in the app.}
 
-\item{type}{The question type. The function supports the following types: "text", "decimal", "select_one", "likert".}
+\item{type}{The question type. The function supports the following types: "text", "decimal", "select_one", "likert", "note", "integer".}
 
 \item{options}{A vector of possible choices for question types "select_one" and "likert".}
 }

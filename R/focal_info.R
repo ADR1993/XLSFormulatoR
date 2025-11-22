@@ -18,19 +18,9 @@ focal_info = function(filename, type, headers = NULL){
   } else if(is.character(type) == FALSE){
     stop("The type argument must be a string")
   }
-  
-  # Build XLSForm header
-  colnames = c("type", "name", "label", "hint", "appearance", 
-               "relevant", "choice_filter", "calculation", "media::image", "repeat_count")
-  
-  start = c(rep("start", 2), rep(NA, times = length(colnames) - 2))
-  
-  end = c(rep("end", 2), rep(NA, times = length(colnames) - 2))
-  
-  today = c(rep("today", 2), rep(NA, times = length(colnames) - 2))
-  
-  username = c(rep("username", 2), rep(NA, times = length(colnames) - 2))
-  
+
+  colnames = c("type", "name", "label", "hint", "appearance", "relevant", "choice_filter", "calculation", "media::image", "repeat_count")
+
   # Now build focal-info group that depends on external csv file
   begin_group1 = c("begin_group", "focal_info", rep(NA, 2), "field-list", rep(NA, length(colnames) - 5))
   arg1 = c(paste("select_one_from_file", filename),
@@ -57,8 +47,7 @@ focal_info = function(filename, type, headers = NULL){
   end_group2 = c("end_group", "focal_confirmation", rep(NA, length(colnames) - 2))
   
   # Output
-  table = rbind(start, end, today, username,
-                begin_group1, arg1, end_group1,
+  table = rbind(begin_group1, arg1, end_group1,
                 begin_group2, row1, row2, row3, end_group2)
   colnames(table) = colnames
   return(table)

@@ -4,7 +4,13 @@
 \alias{download_export}
 \title{Function to download a data file.}
 \usage{
-download_export(export_url, folder_path, api_token, overwrite = FALSE)
+download_export(
+  export_url,
+  folder_path,
+  api_token,
+  wait_time = 5,
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{export_url}{The url for the export on Kobo.}
@@ -12,6 +18,8 @@ download_export(export_url, folder_path, api_token, overwrite = FALSE)
 \item{folder_path}{The path to save a file to.}
 
 \item{api_token}{The token used to sign the request.}
+
+\item{wait_time}{Seconds to wait before starting download. Some time is needed for data to be compiled.}
 
 \item{overwrite}{Allow overwriting?.}
 }

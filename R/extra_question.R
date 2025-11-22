@@ -8,7 +8,7 @@
 
 extra_question = function(prompt, type, options = NULL){
   
-  if(!type %in% c("text", "decimal", "select_one", "likert", "note", "integer".)){
+  if(!type %in% c("text", "decimal", "select_one", "likert", "note", "integer")){
     stop("Not a valid type. Valid types: text, decimal, select_one, likert, note, integer.")
   }
   
