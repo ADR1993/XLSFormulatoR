@@ -43,6 +43,7 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
     headers[[1]] = c("Select name of focal person", "Confirm the identity of the interviewed person")
     headers[[2]] = c("Write the name of the person", "List individuals", "another person")
     headers[[3]] = c("Did you already provide follow-up details about this person?", "Yes", "No") 
+    headers[[4]] = c("Now we have some follow-up questions about the people not on the roster.")
   }
 
   if(!photo_confirm %in% c("all", "only_focal", "none")){
@@ -111,7 +112,9 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
     obj3 = do.call(rbind, follow_up_list)
     
     # Bind together with the focal info group to create the main sheet of the xlsform
-    form = rbind(obj1, obj2, obj3)
+    follow_head = extra_q("follow_intro", headers[[4]][1], "note", choice_list = NULL)
+    
+    form = rbind(obj1, obj2, follow_head, obj3)
   } 
 
 
@@ -244,3 +247,4 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
   # Export xlsform to working directory
   writexl::write_xlsx(xlsform_list, filename_xlsform)
 }
+
