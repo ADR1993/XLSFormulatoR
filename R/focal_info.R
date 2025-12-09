@@ -7,10 +7,6 @@
 #' @export
 
 focal_info = function(filename, type, headers = NULL){
-
-  if(is.null(headers)){
-    headers = c("Select name of focal person", "Confirm the identity of the interviewed person")
-  }
   
   # Error message if the argument is not a character
   if(is.character(filename) == FALSE){

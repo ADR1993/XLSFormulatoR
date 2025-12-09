@@ -14,7 +14,8 @@ compile_xlsform(
   follow_up_type = NULL,
   extra_questions_before = NULL,
   extra_questions_after = NULL,
-  headers = NULL
+  headers = NULL,
+  skip_repeat_names = TRUE
 )
 }
 \arguments{
@@ -36,7 +37,9 @@ compile_xlsform(
 
 \item{extra_questions_after}{A named list of extra questions created using the extra_question() function. (These appear after the name generators).}
 
-\item{headers}{Accessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
+\item{headers}{Accessory prompts for internationalization. Must be NULL, or a 3-list of prompts.}
+
+\item{skip_repeat_names}{If true, allow user to skip repeated names in follow up.
 Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{

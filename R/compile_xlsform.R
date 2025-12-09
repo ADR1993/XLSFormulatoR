@@ -9,13 +9,15 @@
 #' @param follow_up_type A string: "all", "external", or "none", which controls which follow-up questions get asked.
 #' @param extra_questions_before A named list of extra questions created using the extra_question() function. (These appear before the name generators).
 #' @param extra_questions_after A named list of extra questions created using the extra_question() function. (These appear after the name generators).
-#' @param headers Accessory prompts for internationalization. Must be NULL, or a 2-list of prompts.
+#' @param headers Accessory prompts for internationalization. Must be NULL, or a 3-list of prompts.
+#' @param skip_repeat_names If true, allow user to skip repeated names in follow up.
 #' Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.
 #' @return An XLSForm formated "xlxs" file is saved to the working directory This file can be uploaded to KoboCollect. 
 #' @export
 
 compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_xlsform="network_collect.xlsx", type = "jpg", photo_confirm = "all", 
-                           follow_up_questions = NULL, follow_up_type = NULL, extra_questions_before = NULL, extra_questions_after = NULL, headers = NULL){
+                           follow_up_questions = NULL, follow_up_type = NULL, extra_questions_before = NULL, extra_questions_after = NULL, 
+                           headers = NULL, skip_repeat_names = TRUE){
 
   # Build XLSForm header
   colnames = c("type", "name", "label", "hint", "appearance", "relevant", "choice_filter", "calculation", "media::image", "repeat_count")
@@ -38,8 +40,9 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
 
   if(is.null(headers)){
     headers = NULL
-    headers[[1]] = NULL
-    headers[[2]] = NULL
+    headers[[1]] = c("Select name of focal person", "Confirm the identity of the interviewed person")
+    headers[[2]] = c("Write the name of the person", "List individuals", "another person")
+    headers[[3]] = c("Did you already provide follow-up details about this person?", "Yes", "No") 
   }
 
   if(!photo_confirm %in% c("all", "only_focal", "none")){
@@ -101,7 +104,8 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
     follow_up_list = vector(mode = "list", length = length(layer_vec))
     
     for(i in 1:length(layer_vec)){
-      follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], follow_up_questions = follow_up_questions, follow_up_type = follow_up_type)
+      follow_up_list[[i]] = layer_details(layer_vec = layer_vec[i], follow_up_questions = follow_up_questions, follow_up_type = follow_up_type, 
+                                          headers = headers, skip_repeat_names = skip_repeat_names)
     }
     
     obj3 = do.call(rbind, follow_up_list)
@@ -219,6 +223,19 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
   }
 
   # Create list to turn into xlsform export
+  if(skip_repeat_names == TRUE){
+   for(i in 1:length(layer_list)){
+    skip_choice_in = data.frame(list_name = rep(paste0(layer_vec[i],"_already_in_set_scale"), 2),  
+                             name = c(headers[[3]][2], headers[[3]][3]), 
+                             label = c(headers[[3]][2], headers[[3]][3]) 
+                             )
+    skip_choice_out = data.frame(list_name = rep(paste0(layer_vec[i],"_already_in_set_out_of_roster_scale"), 2),  
+                             name = c(headers[[3]][2], headers[[3]][3]), 
+                             label = c(headers[[3]][2], headers[[3]][3]) 
+                             )
+    choices = rbind(choices, skip_choice_in, skip_choice_out)
+   }}
+
    colnames(survey_head) = colnames(survey)
    colnames(survey_tail) = colnames(survey)
   xlsform_list = list(survey = rbind(header_table, survey_head, survey, survey_tail),

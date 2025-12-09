@@ -9,10 +9,6 @@
 #' @export
 
 net_layer = function(filename, type, layer, layer_question, headers = NULL){
-
-  if(is.null(headers)){
-    headers = c("Write the name of the person", "List individuals", "another person")
-  }
   
   # XLSForm column names
   colnames = c("type", "name", "label", "hint", "appearance", 

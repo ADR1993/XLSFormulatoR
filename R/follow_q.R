@@ -6,10 +6,12 @@
 #' @param q_type Question type as a string. The options are "text", "decimal", "select_one", and "likert".
 #' @param choice_list A vector of strings that contains the options for a select_one or a likert question. 
 #' @param follow_up_type A string: "all", "external", or "none", which controls which follow-up questions get asked.
+#' @param skip_repeat_names Should the questions be skipped based on an inital yes-no question.
+#' @param headers A list containing info need for skip logic.
 #' @return A matrix corresponding to the input question in XLSForm format. 
 #' @export
 
-follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL, follow_up_type){
+follow_q = function(layer, q_name, q_prompt, q_type, choice_list = NULL, follow_up_type, skip_repeat_names = TRUE, headers){
   
   choice = paste0(q_name, "_scale")
   
@@ -102,9 +104,24 @@ if(follow_up_type == "external"){
       drop[i] = 0
     }
   }
-  obj = obj[which(drop == 0),]
+  obj = obj[which(drop == 0), ,drop=FALSE]
 }
+ 
+ false_name = headers[[3]][3]
 
+ if(skip_repeat_names==TRUE){
+  for(k in 1:nrow(obj)){
+  obj[k,6] = ifelse(obj[k,6] == paste0("${current_", layer, "_out_of_roster_indicator} = 1"),
+                    paste0(obj[k,6], " and ", paste0("${", layer, "_already_in_set_out_of_roster} = ", "\"", false_name, "\"")),
+                      obj[k,6])
+
+  obj[k,6] = ifelse(obj[k,6] == paste0("${current_", layer, "_out_of_roster_indicator} = 0"),
+                    paste0(obj[k,6], " and ", paste0("${", layer, "_already_in_set} = ", "\"", false_name, "\"")),
+                      obj[k,6])
+ }
+}
 
   return(obj)
 }
+
+

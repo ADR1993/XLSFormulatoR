@@ -4,7 +4,7 @@
 \alias{extra_q}
 \title{extra_q function file.}
 \usage{
-extra_q(q_name, q_prompt, q_type, choice_list = NULL)
+extra_q(q_name, q_prompt, q_type, choice_list = NULL, hint = NA, relevant = NA)
 }
 \arguments{
 \item{q_name}{The name of the question (as a string)}
@@ -14,6 +14,10 @@ extra_q(q_name, q_prompt, q_type, choice_list = NULL)
 \item{q_type}{Question type as a string. The options are "text", "decimal", "select_one", and "likert".}
 
 \item{choice_list}{A vector of strings that contains the options for a select_one or a likert question.}
+
+\item{hint}{Text to add to hint field.}
+
+\item{relevant}{Text to add to relevant field.}
 }
 \value{
 A row with an XLSForm question.

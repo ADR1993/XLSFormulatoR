@@ -4,10 +4,12 @@
 #' @param q_prompt The prompt of the question (as a string).
 #' @param q_type Question type as a string. The options are "text", "decimal", "select_one", and "likert".
 #' @param choice_list A vector of strings that contains the options for a select_one or a likert question. 
+#' @param hint Text to add to hint field.
+#' @param relevant Text to add to relevant field.
 #' @return A row with an XLSForm question.
 #' @export
 
-extra_q = function(q_name, q_prompt, q_type, choice_list = NULL){
+extra_q = function(q_name, q_prompt, q_type, choice_list = NULL, hint = NA, relevant = NA){
   
   choice = paste0(q_name, "_scale")
   
@@ -64,7 +66,9 @@ extra_q = function(q_name, q_prompt, q_type, choice_list = NULL){
     
   }
 
-  
+  row_select[4] = hint
+  row_select[6] = relevant
 
   return(row_select)
 }
+
