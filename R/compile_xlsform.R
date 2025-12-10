@@ -39,11 +39,7 @@ compile_xlsform = function(layer_list, filename_roster = "names.csv", filename_x
   }
 
   if(is.null(headers)){
-    headers = NULL
-    headers[[1]] = c("Select name of focal person", "Confirm the identity of the interviewed person")
-    headers[[2]] = c("Write the name of the person", "List individuals", "another person")
-    headers[[3]] = c("Did you already provide follow-up details about this person?", "Yes", "No") 
-    headers[[4]] = c("Now we have some follow-up questions about the people not on the roster.")
+    headers = internationalize_headers()
   }
 
   if(!photo_confirm %in% c("all", "only_focal", "none")){
