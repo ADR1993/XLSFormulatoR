@@ -162,4 +162,4 @@ d = kobo_to_edgelist(data_file, questions, save = FALSE)
 
 Learn more
 ------
-For more details, see our paper in Field Methods. For stand-alone R scripts of the above, click here (English) or here (Spanish). 
+For more details, see our paper in Field Methods. For stand-alone R scripts of the above, click [here (English)](https://github.com/ADR1993/XLSFormulatoR/blob/main/inst/BasicExample.R) or [here (Spanish)](https://github.com/ADR1993/XLSFormulatoR/blob/main/inst/SpanishExample.R). 
