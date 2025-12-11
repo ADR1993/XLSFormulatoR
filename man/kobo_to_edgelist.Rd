@@ -12,8 +12,6 @@ kobo_to_edgelist(path, questions, save = FALSE)
 \item{questions}{The labeled list used in the creation of the XLSForm.}
 
 \item{save}{If TRUE, it saves the output as an XLSX file in the working directory.}
-
-\item{return_hash}{Boolean. If TRUE, it returns a list whose first element is the edgelist, and the second element is the hash list mapping out of roster names to their hash. If FALSE, it returns the edgelist only.}
 }
 \value{
 A data frame containing a network edgelist, or a list containing a network edgelist and a hash list for out of roster individuals.

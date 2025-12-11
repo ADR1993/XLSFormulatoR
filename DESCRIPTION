@@ -1,10 +1,10 @@
 Package: XLSFormulatoR
 Title: A package for building network collection apps in XLSForm for Kobo
-Version: 0.0.1.1000
+Version: 0.0.1.2000
 Authors@R: person("Augusto", "Dalla Ragione", email = "augusto_dalla_ragione@eva.mpg.de", role = c("aut", "cre"))
 Description: Build XLSForm files for network data collection.
-Depends: readxl, writexl, dplyr, stringr, openssl
+Depends: readxl, writexl, dplyr, stringr, openssl, httr, jsonlite, spsUtil
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3

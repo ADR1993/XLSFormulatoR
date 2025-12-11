@@ -6,22 +6,40 @@
 \usage{
 compile_xlsform(
   layer_list,
-  filename = "names.csv",
+  filename_roster = "names.csv",
+  filename_xlsform = "network_collect.xlsx",
   type = "jpg",
   photo_confirm = "all",
-  follow_up_questions = NULL
+  follow_up_questions = NULL,
+  follow_up_type = NULL,
+  extra_questions_before = NULL,
+  extra_questions_after = NULL,
+  headers = NULL,
+  skip_repeat_names = TRUE
 )
 }
 \arguments{
 \item{layer_list}{A labeled list of network questions to construct.}
 
-\item{filename}{The name of the external csv file with names and PIDS.}
+\item{filename_roster}{The name of the external csv file with names and PIDS.}
+
+\item{filename_xlsform}{The name of the XLSForm to be created.}
 
 \item{type}{The file extension of the photographs. Should be "jpg" or "png".}
 
 \item{photo_confirm}{A value that specifies whether the photo confirmation group needs to be included in the output.}
 
-\item{follow_up_questions}{A named list of follow-up questions created using the alter_question() function.
+\item{follow_up_questions}{A named list of follow-up questions created using the alter_question() function.}
+
+\item{follow_up_type}{A string: "all", "external", or "none", which controls which follow-up questions get asked.}
+
+\item{extra_questions_before}{A named list of extra questions created using the extra_question() function. (These appear before the name generators).}
+
+\item{extra_questions_after}{A named list of extra questions created using the extra_question() function. (These appear after the name generators).}
+
+\item{headers}{Accessory prompts for internationalization. Must be NULL, or a 3-list of prompts.}
+
+\item{skip_repeat_names}{If true, allow user to skip repeated names in follow up.
 Options are "all" (for always), "only_focal" if only confirmation of the focal is needed, and "none" to omit all photo confirmation steps for focal and alters.}
 }
 \value{

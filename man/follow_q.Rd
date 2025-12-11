@@ -4,7 +4,16 @@
 \alias{follow_q}
 \title{follow_q function file.}
 \usage{
-follow_q(layer, q_name, q_prompt, q_type, choice_list = NULL)
+follow_q(
+  layer,
+  q_name,
+  q_prompt,
+  q_type,
+  choice_list = NULL,
+  follow_up_type,
+  skip_repeat_names = TRUE,
+  headers
+)
 }
 \arguments{
 \item{layer}{The name of the network layer (as a string).}
@@ -16,6 +25,12 @@ follow_q(layer, q_name, q_prompt, q_type, choice_list = NULL)
 \item{q_type}{Question type as a string. The options are "text", "decimal", "select_one", and "likert".}
 
 \item{choice_list}{A vector of strings that contains the options for a select_one or a likert question.}
+
+\item{follow_up_type}{A string: "all", "external", or "none", which controls which follow-up questions get asked.}
+
+\item{skip_repeat_names}{Should the questions be skipped based on an inital yes-no question.}
+
+\item{headers}{A list containing info need for skip logic.}
 }
 \value{
 A matrix corresponding to the input question in XLSForm format.
